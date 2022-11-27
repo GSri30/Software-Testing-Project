@@ -10,20 +10,18 @@ import org.junit.Test;
  */
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+
+    @Test
+    public void testSizeWithNull(){
+        App linked_list = new App();
+        int sz = linked_list.size(null);
+        assertEquals(sz, 0);
+    }
 
     @Test
     public void testAddEnd(){
         App linked_list = new App();
-        linked_list.add(10);
+        linked_list.addLast(10);
         assertEquals(linked_list.count, 1);
     }
-
-    // @Test
-    // public void testAddAtId(){
-    //     App linked_list = new App();
-    //     linked_list.add()
-    // }
 }
