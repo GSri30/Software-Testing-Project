@@ -21,9 +21,9 @@ public class AppTest
         assertEquals(linked_list.count, 1);
     }
 
-    @Test
-    public void testAddAtId(){
-        App linked_list = new App();
-        linked_list.add()
-    }
+    // @Test
+    // public void testAddAtId(){
+    //     App linked_list = new App();
+    //     linked_list.add()
+    // }
 }

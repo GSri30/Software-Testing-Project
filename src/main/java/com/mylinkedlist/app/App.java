@@ -40,44 +40,44 @@ public class App
         }
     }
 
-    String add(int index,int d)// add at given index
-    {
-        int count=size();
-        if(index>0 && (index<count || index==count))
-        {
-            if(index<count)
-            {
-                Node before=head;
-                Node n=new Node(d);
-                for(int i=0;i<index-1;i++)
-                {
-                    before=before.next;
-                }
-                n.next=before.next;
-                before.next=n;
-                count++;
-                return "added successfully";
-            }
-            else if(index==count)
-            {
-                Node n=new Node(d);
-                last.next=n;
-                last=n;
-                count++;
-                return "added successfully";
-            }
-        }
-        else if(index==0)
-        {
-            Node n=new Node(d);
-            n.next=head;
-            head=n;
-            count++;
-            return "added successfully";
-        }
+    // String add(int index,int d)// add at given index
+    // {
+    //     int count=size();
+    //     if(index>0 && (index<count || index==count))
+    //     {
+    //         if(index<count)
+    //         {
+    //             Node before=head;
+    //             Node n=new Node(d);
+    //             for(int i=0;i<index-1;i++)
+    //             {
+    //                 before=before.next;
+    //             }
+    //             n.next=before.next;
+    //             before.next=n;
+    //             count++;
+    //             return "added successfully";
+    //         }
+    //         else if(index==count)
+    //         {
+    //             Node n=new Node(d);
+    //             last.next=n;
+    //             last=n;
+    //             count++;
+    //             return "added successfully";
+    //         }
+    //     }
+    //     else if(index==0)
+    //     {
+    //         Node n=new Node(d);
+    //         n.next=head;
+    //         head=n;
+    //         count++;
+    //         return "added successfully";
+    //     }
 
-        return "wrong Index";
-    }
+    //     return "wrong Index";
+    // }
 
     public static void main( String[] args )
     {
