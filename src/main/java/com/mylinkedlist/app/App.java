@@ -150,7 +150,7 @@ public class App
                 head=head.next;
                 count--;
             }
-            if(index<count-1 && index>0)
+            else if(index<count_-1 && index>0)
             {
                 Node before=head;
                 for(int i=0;i<index-1;i++)
@@ -197,9 +197,8 @@ public class App
      * Swap
      */
 
-    void swap(int d1,Integer d2)
+    void swap(int d1, int d2)
     {
-        System.out.println("inside swap"+count);
         Node current=head;
         Node indexd1=null;
         Node indexd2=null;
@@ -220,7 +219,7 @@ public class App
                 current=current.next;
             }
         }
-        if(indexd1.equals(null) || indexd2.equals(null))
+        if(indexd1 == null || indexd2 == null)
         {
             System.out.println("elements not found");
         }
@@ -393,7 +392,6 @@ public class App
             fastPointer=fastPointer.next.next;
             slowPointer=slowPointer.next;
         }
-        // System.out.println("middle element is:"+slowPointer.data+"\n");
         String s ="middle element is:"+slowPointer.data;
         return s;
     }
@@ -472,7 +470,6 @@ public class App
         String s = "";
         while(current!=null)
         {
-            // System.out.print(current.data+"  ");
             s=s + current.data + " ";
             current=current.next;
         }
@@ -580,19 +577,16 @@ public class App
 
     }
 
-    boolean printReverse()
+    void printReverse()
     {
         printReverse(head);
-        System.out.println("");
-        return true;
     }
 
-    boolean printReverse(Node current)
+    void printReverse(Node current)
     {
         if(current.next!=null)
             printReverse(current.next);
-        System.out.print(current.data+"  "); //tail recursion
-        return true;
+        System.out.print(current.data+" "); //tail recursion
     }
 
     void removeDuplicatesInSortedList()
@@ -652,23 +646,29 @@ public class App
         if(pre==null || current==null || pre==head)
         {
             if(pre==null || current==null)
+            {
                 return;
+            }
             if(pre==head)
+            {
                 head=head.next;
+            }
         }
         pre.next=current.next;
         current.next=pre;
         if(prePre!=null)
+        {
             prePre.next=current;
+        }
         prePre=pre;
-        pre=pre.next;//here for even length pre will be null
+        pre=pre.next;
+        //here for even length pre will be null
         //so current=pre.next only if pre!=null
         //otherwise it will give nullpointerException!
-        //System.out.println(pre.data);
         if(pre!=null)
+        {
             current=pre.next;
-
-        //System.out.println("current"+current.data);
+        }
         swapPairWise(pre,current,prePre);
     }
 
@@ -687,13 +687,10 @@ public class App
             return intersection(n1.next,n2);
         if(n2.data<n1.data)
             return intersection(n1,n2.next);
-        if(n1.data==n2.data)
-        {
-            Node n=new Node(n1.data);
-            n.next=intersection(n1.next,n2.next);
-            return n;
-        }
-        return null; //no use statement!
+        Node n=new Node(n1.data);
+        n.next=intersection(n1.next,n2.next);
+        return n;
+    
     }
 
     void removeAlternateNodes()

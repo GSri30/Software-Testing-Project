@@ -4,16 +4,27 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.junit.Rule;
+
+import org.junit.contrib.java.lang.system.SystemOutRule;
 
 /**
  * Unit test for simple App.
  */
 public class AppTest 
 {
+    @Rule
+    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+
     @Test
     public void testSize(){
         testSizeWithNull();
         testSizeNonEmpty();
+        testInititalization();
+    }
+
+    public void testInititalization(){
+        Node n = new Node();
     }
 
     public void testSizeWithNull(){
@@ -62,6 +73,9 @@ public class AppTest
         assertEquals(linked_list.count, 4);
         assertEquals(linked_list.add(2,100), "added successfully");
         assertEquals(linked_list.add(-1,0), "wrong Index");
+        assertEquals(linked_list.add(5,5), "added successfully");
+        
+        
     }
 
     @Test
@@ -103,9 +117,15 @@ public class AppTest
         linked_list5.add(2);
         linked_list5.add(3);
         assertEquals(linked_list5.remove(5), "index is not valid");
-        linked_list5.remove(3);
+        assertEquals(linked_list5.remove(0), "removed");
         assertEquals(linked_list5.count, 3);
+        assertEquals(linked_list5.remove(1), "removed");
+        
+        linked_list5.add(5);
+        assertEquals(linked_list5.remove(2), "removed");
 
+        linked_list5.add(10);
+        assertEquals(linked_list5.remove(2), "removed");        
     }
 
     @Test
@@ -130,6 +150,9 @@ public class AppTest
         
         linked_list1.swap(1,2);
         assertEquals(linked_list1.get(0), 1);
+        
+        linked_list1.swap(10, 20);
+        assertEquals("elements not found", systemOutRule.getLog().trim());
     }
 
     @Test
@@ -243,21 +266,29 @@ public class AppTest
         assertEquals(mid.data,1);
     }
 
+    // @Test
+    // public void testprintNthNodeFromLast(){
+    //     testPrintNthNodeFromLastPredicate1();
+    //     testPrintNthNodeFromLastPredicate2();
+    // }
+
     @Test
-    public void testprintNthNodeFromLast(){
-        App linked_list1 = new App();
-        linked_list1.add(0);
-        linked_list1.add(1);
-        linked_list1.add(2);
-        linked_list1.add(3);
-        linked_list1.printNthNodeFromLast(2);
-        assertEquals(linked_list1.get(2), 2);
-        linked_list1.printNthNodeFromLast(5);
-
-
-        App linked_list2 = new App();
-        linked_list2.printNthNodeFromLast(0);
+    public void testPrintNthNodeFromLastPredicate1(){
+        App linked_list = new App();
+        linked_list.printNthNodeFromLast(0);
+        assertEquals("size exceeds", systemOutRule.getLog().trim());
     }
+
+    @Test
+    public void testPrintNthNodeFromLastPredicate2(){
+        App linked_list = new App();
+        linked_list.add(0);
+        linked_list.add(1);
+        linked_list.add(2);
+        linked_list.add(3);
+        linked_list.printNthNodeFromLast(2);
+        assertEquals("2th node from the last is:2", systemOutRule.getLog().trim());
+    } 
 
     @Test
     public void testisPalindrome(){
@@ -340,7 +371,8 @@ public class AppTest
         linked_list.add(1);
         linked_list.add(2);
 
-        assertEquals(linked_list.printReverse(), true);
+        linked_list.printReverse();
+        assertEquals("2 1", systemOutRule.getLog().trim());
     }
 
     @Test
@@ -401,6 +433,21 @@ public class AppTest
         
         linked_list1.intersectionOfLists(linked_list1, linked_list2);
         assertEquals(linked_list1.size(), 3);
+
+        App linked_list3 = new App();
+        App linked_list4 = new App();
+
+        linked_list3.add(10);
+        linked_list3.add(20);
+        linked_list3.add(40);
+
+        linked_list4.add(10);
+        linked_list4.add(20);
+        linked_list4.add(30);
+        linked_list4.add(40);
+
+        linked_list3.intersectionOfLists(linked_list3, linked_list4);
+        assertEquals(linked_list3.size(), 3);
     }
 
     @Test
@@ -414,6 +461,13 @@ public class AppTest
 
         linked_list.removeAlternateNodes();
         assertEquals(linked_list.size(), 2);
+
+        App linked_list1 = new App();
+        linked_list1.add(0);
+        linked_list1.add(1);
+        linked_list1.add(2);
+        linked_list1.removeAlternateNodes();
+        assertEquals(linked_list1.size(), 2);
     }
 
     @Test
@@ -429,6 +483,12 @@ public class AppTest
 
         linked_list.removeAlternateNodesRecurcive();
         assertEquals(linked_list.size(), 2);
+
+        App linked_list1 = new App();
+        linked_list1.add(0);
+        linked_list1.add(1);
+        linked_list1.removeAlternateNodesRecurcive();
+        assertEquals(linked_list1.size(), 1);
     }
 
     @Test
@@ -528,6 +588,11 @@ public class AppTest
 
         linked_list.evenDataFirst();
         assertEquals(linked_list.printList(), "2 10 12 5 3 ");
+        assertEquals(linked_list.count, 5);
+
+        App linked_list1 = new App();
+        linked_list1.evenDataFirst();
+        assertEquals(linked_list1.count, 0);
     }
 
     // @Test
