@@ -316,6 +316,7 @@ public class App
     {
         head=reverseByK(head,null,null,k);
     }
+
     Node reverseByK(Node current,Node before,Node after,int k)
     {
         Node tempHead=current;
@@ -331,9 +332,13 @@ public class App
         }
 
         if(current!=null)
+        {
             tempHead.next=reverseByK(current,null,null,k);
+        }
         else
+        {
             last=tempHead;
+        }
         return before;
 
     }
@@ -342,6 +347,7 @@ public class App
     {
         head=reverseAlternateKNodes(head,null,null,k);
     }
+
     Node reverseAlternateKNodes(Node current,Node before,Node after,int k)
     {
         Node tempHead=current;
@@ -358,11 +364,15 @@ public class App
         Node lastNode=tempHead;
         int count=0;
         if(current!=null)
+        {
             tempHead.next=current;
+        }
         while(count<k)
         {
             if(current==null)
+            {
                 return before;
+            }
             else
             {
                 lastNode=current;
@@ -375,7 +385,6 @@ public class App
         else
             last=tempHead;
         return before;
-
     }
 
 
@@ -974,19 +983,18 @@ public class App
         //it will not even change the order of odd and even elements
         Node pre=null;
         Node current=head;
-        //Node tempLast=last;
         if(head==null || head.next==null)
         {
             return;
         }
-        int count=size(head);
-        while(count>0)
+        int count_ = size(head);
+        while(count_>0)
         {
             if(current.data%2==0)
             {
                 pre=current;
                 current=current.next;
-                count--;
+                count_--;
             }
             else
             {
@@ -1002,76 +1010,8 @@ public class App
                 last=current;
                 current=current.next;
                 last.next=null;
-                count--;
+                count_--;
             }
         }
     }
-
-    // String addtwoListNumber(App list1, App list2, int carry)
-    // {
-    //     return addtwoListNumber(list1.head,list2.head,carry);
-    // }
-
-    // String addtwoListNumber(Node n1, Node n2, int carry)
-    // {
-    //     if(n1==null && n2==null && carry>0)
-    //     {
-    //         Node n=new Node(1);
-    //         if(head==null)
-    //         {
-    //             head=n;
-    //             last=n;
-    //         }
-    //         last.next=n;
-    //         last=last.next;
-    //         return "carry added";
-    //     }
-    //     else if(n1==null && n2==null)
-    //     {
-    //         return "addition is completed";
-    //     }
-    //     else
-    //     {
-    //         int value=0;
-    //         if(n1!=null && n2!=null)
-    //         {
-    //             value=n1.data+n2.data+carry;
-    //         }
-    //         else if(n1==null)
-    //         {
-    //             value=n2.data+carry;
-    //         }
-    //         else if(n2==null)
-    //         {
-    //             value=n1.data+carry;
-    //         }
-    //         carry=value/10;
-    //         int m=value%10;
-    //         Node n = new Node(m);
-    //         if(this.head==null)
-    //         {
-    //             head=n;
-    //             last=n;
-    //         }
-    //         else
-    //         {
-    //             last.next=n;
-    //             last=last.next;
-    //         }
-    //         System.out.println(n1.data+" "+n2.data+" carry:"+carry);
-    //         if(n1!=null && n2!=null)
-    //         {
-    //             return addtwoListNumber(n1.next,n2.next,carry);
-    //         }
-    //         else if(n1==null)
-    //         {
-    //             return addtwoListNumber(null,n2.next,carry);
-    //         }
-    //         else if(n2==null)
-    //         {
-    //             return addtwoListNumber(n1.next,null,carry);
-    //         }
-    //         return null;
-    //     }
-    // }
 }

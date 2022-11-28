@@ -1,6 +1,5 @@
 package com.mylinkedlist.app;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -197,8 +196,6 @@ public class AppTest
         linked_list1.add(0);
         linked_list1.add(1);
         linked_list1.add(2);
-        // String s = linked_list1.printList();
-        // System.out.println(s);
         assertEquals(linked_list1.printList(), "0 1 2 ");
     }
 
@@ -225,6 +222,7 @@ public class AppTest
         linked_list1.add(1);
         linked_list1.add(2);
         linked_list1.add(3);
+        linked_list1.add(4);
         linked_list1.reverseByK(2);
         assertEquals(linked_list1.get(2), 3);
     }
@@ -238,7 +236,7 @@ public class AppTest
         linked_list1.add(3);
         linked_list1.add(4);
         linked_list1.add(5);
-       
+
         linked_list1.reverseAlternateKNodes(2);
         assertEquals(linked_list1.get(2), 2);
 
@@ -315,8 +313,8 @@ public class AppTest
         App linked_list = new App();
         assertEquals(linked_list.findLoop(), false);
         linked_list.add(10);
-        assertEquals(linked_list.findLoop(), false);
         linked_list.add(20);
+        assertEquals(linked_list.findLoop(), false);
         linked_list.last.next = linked_list.head;
         assertEquals(linked_list.findLoop(), true);
         
@@ -327,7 +325,6 @@ public class AppTest
         linked_list1.add(40);
         linked_list1.last.next = linked_list1.head;
         assertEquals(linked_list1.findLoop(), true);
-
     }
 
     @Test
@@ -336,23 +333,25 @@ public class AppTest
         linked_list1.add(0);
         linked_list1.add(2);
         linked_list1.add(4);
+        linked_list1.add(6);
 
         App linked_list2 = new App();
         linked_list2.add(1);
         linked_list2.add(3);
         linked_list2.add(5);
 
-        assertEquals(linked_list1.mergeTwoSorted(linked_list1, linked_list2), "012345");
+        assertEquals(linked_list1.mergeTwoSorted(linked_list1, linked_list2), "0123456");
     
         App linked_list3 = new App();
         linked_list3.add(1);
         linked_list3.add(5);
 
         App linked_list4 = new App();
+        linked_list4.add(0);
         linked_list4.add(1);
         linked_list4.add(3);
         
-        assertEquals(linked_list3.mergeTwoSorted(linked_list3, linked_list4), "135");
+        assertEquals(linked_list3.mergeTwoSorted(linked_list3, linked_list4), "0135");
 
         App linked_list5 = new App();
         linked_list5.add(1);
@@ -480,6 +479,7 @@ public class AppTest
         linked_list.add(10);
         linked_list.add(20);
         linked_list.add(30);
+        linked_list.add(40);
 
         linked_list.removeAlternateNodesRecurcive();
         assertEquals(linked_list.size(), 2);
@@ -493,17 +493,32 @@ public class AppTest
 
     @Test
     public void testAlternatingSplit(){
-        App linked_list = new App();
-        linked_list.add(10);
-        linked_list.add(20);
-        linked_list.add(30);
-        linked_list.add(40);
-        linked_list.add(50);
-        linked_list.add(60);
+        App linked_list1 = new App();
+        App ans_list1 = new App();
 
-        App ans_list = new App();
-        linked_list.alternatingSplit(ans_list);
-        assertEquals(ans_list.size(), 3);
+        linked_list1.alternatingSplit(ans_list1);
+        
+        linked_list1.add(10);
+        linked_list1.add(20);
+        linked_list1.add(30);
+        linked_list1.add(40);
+        linked_list1.add(50);
+
+        linked_list1.alternatingSplit(ans_list1);
+        assertEquals(ans_list1.size(), 2);
+        assertEquals(linked_list1.size(), 3);
+
+        App linked_list2 = new App();
+        App ans_list2 = new App();
+
+        linked_list2.add(10);
+        linked_list2.add(20);
+        linked_list2.add(30);
+        linked_list2.add(40);
+
+        linked_list2.alternatingSplit(ans_list2);
+        assertEquals(ans_list2.size(), 2);
+        assertEquals(linked_list2.size(), 2);
     }
 
     @Test
@@ -534,11 +549,32 @@ public class AppTest
         linked_list.add(50);
         linked_list.add(20);
         linked_list.add(90);
-        linked_list.add(10);
         linked_list.add(80);
+        linked_list.add(70);
 
         linked_list.mergeSort();
-        assertEquals(linked_list.printList(), "10 20 50 80 90 ");
+        assertEquals(linked_list.printList(), "20 50 70 80 90 ");
+    }
+
+    @Test
+    public void testMergeLists(){
+        App linked_list1 = new App();
+        App linked_list2 = new App();
+
+        linked_list1.add(20);
+        linked_list1.add(50);
+        linked_list1.add(90);
+
+        Node answer1 = linked_list1.mergeLists(linked_list1.head, linked_list2.head);
+        Node answer2 = linked_list1.mergeLists(linked_list2.head, linked_list1.head);
+        assertEquals(answer1.data, 20);
+        assertEquals(answer2.data, 20);
+        
+        linked_list2.add(30);
+        linked_list2.add(40);
+
+        Node answer3 = linked_list2.mergeLists(linked_list1.head, linked_list2.head);
+        assertEquals(answer3.data, 20);
     }
 
     @Test
@@ -553,12 +589,16 @@ public class AppTest
         linked_list.removeifrightSideNodeIsGreater();
         assertEquals(linked_list.printList(), "50 ");
 
-        linked_list.add(20);
+        linked_list.add(60);
         linked_list.add(90);
+        linked_list.add(30);
+        linked_list.add(30);
+        linked_list.add(20);
+        linked_list.add(30);
         linked_list.add(10);
-
+        
         linked_list.removeifrightSideNodeIsGreater();
-        assertEquals(linked_list.printList(), "50 90 10 ");
+        assertEquals(linked_list.printList(), "90 30 30 30 10 ");
     }
 
     @Test
@@ -571,15 +611,17 @@ public class AppTest
         linked_list.add(10);
         linked_list.add(30);
         linked_list.add(5);
+        linked_list.add(5);
         
         linked_list.removeNodeifAnyRHSisBigger();
-        assertEquals(linked_list.printList(), "90 30 5 ");
+        assertEquals(linked_list.printList(), "90 30 5 5 ");
     }
 
     @Test
     public void testEvenDataFirst(){
         App linked_list = new App();
 
+        linked_list.add(1);
         linked_list.add(2);
         linked_list.add(5);
         linked_list.add(10);
@@ -587,27 +629,11 @@ public class AppTest
         linked_list.add(3);
 
         linked_list.evenDataFirst();
-        assertEquals(linked_list.printList(), "2 10 12 5 3 ");
-        assertEquals(linked_list.count, 5);
+        assertEquals(linked_list.printList(), "2 10 12 1 5 3 ");
+        assertEquals(linked_list.count, 6);
 
         App linked_list1 = new App();
         linked_list1.evenDataFirst();
         assertEquals(linked_list1.count, 0);
     }
-
-    // @Test
-    // public void testAddTwoListNumber(){
-    //     App linked_list1 = new App();
-    //     App linked_list2 = new App();
-
-    //     linked_list1.add(9);
-    //     linked_list1.add(9);
-    //     linked_list1.add(9);
-
-    //     linked_list2.add(9);
-    //     linked_list2.add(9);
-    //     linked_list2.add(9);        
-
-    //     System.out.println(linked_list1.addtwoListNumber(linked_list1, linked_list2, 0));
-    // }
 }
