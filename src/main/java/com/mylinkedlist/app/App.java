@@ -51,6 +51,18 @@ public class App
         return target.data;
     }
 
+    Node getMiddleElement(Node head)
+    {
+        Node fastPointer=head;
+        Node slowPointer=head;
+        while(fastPointer.next!=null && fastPointer.next.next!=null)
+        {
+            fastPointer=fastPointer.next.next;
+            slowPointer=slowPointer.next;
+        }
+        return slowPointer;
+    }
+
     /*
      * Setter
      */
@@ -162,12 +174,17 @@ public class App
                 count--;
             }
             else
+            {
                 return "index is not valid";
+            }
         }
         else if(count_==0)
+        {
             return "list is empty";
-        else if(index<0)
+        }
+        else if(index<0){
             return "index is not valid";
+        }
         else if(index==count_-1)
         {
             Node before=head;
@@ -191,6 +208,44 @@ public class App
             n.next=n.next.next;
             count--;
         }
+    }
+
+    void removeAlternateNodes()
+    {
+        int i=0;
+        Node pre=null;
+        Node current=head;
+        while(current!=null)
+        {
+            if(i%2==0)
+            {
+                pre=current;
+                current=current.next;
+                i++;
+            }
+            else
+            {
+                pre.next=current.next;
+                current=current.next;
+                i++;
+            }
+        }
+    }
+
+    void removeAlternateNodesRecurcive()
+    {
+        removeAlternateNodesRecurcive(head);
+    }
+    
+    void removeAlternateNodesRecurcive(Node current)
+    {
+        if(current==null || current.next==null )
+            return;
+        if(current.next.next!=null)
+            current.next=current.next.next;
+        else
+            current.next=null;
+        removeAlternateNodesRecurcive(current.next);
     }
 
     /*
@@ -233,7 +288,9 @@ public class App
     public void swapNodes(int x, int y)
     {
         // Nothing to do if x and y are same
-        if (x == y) return;
+        if (x == y){
+            return;
+        }
 
         // Search for x (keep track of prevX and CurrX)
         Node prevX = null, currX = head;
@@ -253,25 +310,83 @@ public class App
 
         // If either x or y is not present, nothing to do
         if (currX == null || currY == null)
+        {
             return;
+        }
 
         // If x is not head of linked list
         if (prevX != null)
+        {
             prevX.next = currY;
+        }
         else //make y the new head
+        {
             head = currY;
+        }
 
         // If y is not head of linked list
         if (prevY != null)
+        {
             prevY.next = currX;
+        }
         else // make x the new head
+        {
             head = currX;
+        }
 
         // Swap next pointers
         Node temp = currX.next;
         currX.next = currY.next;
         currY.next = temp;
     }
+
+    String swapPairWise()
+    {
+        swapPairWise(head,head.next,null);
+        Node curr=this.head;
+        StringBuilder sb=new StringBuilder();
+        while(curr!=null)
+        {
+            sb.append(curr.data);
+            curr=curr.next;
+        }
+        return sb.toString();
+    }
+
+    void swapPairWise(Node pre,Node current,Node prePre)
+    {
+        if(pre==null || current==null || pre==head)
+        {
+            if(pre==null || current==null)
+            {
+                return;
+            }
+            if(pre==head)
+            {
+                head=head.next;
+            }
+        }
+        pre.next=current.next;
+        current.next=pre;
+        if(prePre!=null)
+        {
+            prePre.next=current;
+        }
+        prePre=pre;
+        pre=pre.next;
+        //here for even length pre will be null
+        //so current=pre.next only if pre!=null
+        //otherwise it will give nullpointerException!
+        if(pre!=null)
+        {
+            current=pre.next;
+        }
+        swapPairWise(pre,current,prePre);
+    }
+
+    /*
+     * Reverse List
+     */
 
     void reverse() {
         last=head;
@@ -381,12 +496,19 @@ public class App
             }
         }
         if(current!=null)
+        {
             lastNode.next=reverseAlternateKNodes(current,null,null,k);
+        }
         else
+        {
             last=tempHead;
+        }
         return before;
     }
 
+    /*
+     * Print
+     */
 
     /*
 	Traverse linked list using two pointers. Move one pointer by one and other pointer by two.
@@ -403,18 +525,6 @@ public class App
         }
         String s ="middle element is:"+slowPointer.data;
         return s;
-    }
-
-    Node getMiddleElement(Node head)
-    {
-        Node fastPointer=head;
-        Node slowPointer=head;
-        while(fastPointer.next!=null && fastPointer.next.next!=null)
-        {
-            fastPointer=fastPointer.next.next;
-            slowPointer=slowPointer.next;
-        }
-        return slowPointer;
     }
 
     void printNthNodeFromLast(int n)
@@ -436,10 +546,37 @@ public class App
         System.out.println(n+"th node from the last is:"+main.data);
     }
 
+    String printList()
+    {
+        Node current=head;
+        String s = "";
+        while(current!=null)
+        {
+            s = s + current.data + " ";
+            current=current.next;
+        }
+        return s;
+    }
+
+    void printReverse()
+    {
+        printReverse(head);
+    }
+
+    void printReverse(Node current)
+    {
+        if(current.next!=null)
+            printReverse(current.next);
+        System.out.print(current.data+" "); //tail recursion
+    }
+
+    /*
+     * Algorithms 
+     */
 
     boolean isPalindrom()
     {
-        Node middle=head;
+        Node middle = head;
         Node fastPointer=head;
         Node slowPointer=head;
         //find out middle node
@@ -469,20 +606,6 @@ public class App
         Node link1=reverseRec(slowPointer.next,null,null);
         slowPointer.next=link1;
         return true;
-    }
-
-
-
-    String printList()
-    {
-        Node current=head;
-        String s = "";
-        while(current!=null)
-        {
-            s=s + current.data + " ";
-            current=current.next;
-        }
-        return s;
     }
 
      /*
@@ -586,18 +709,6 @@ public class App
 
     }
 
-    void printReverse()
-    {
-        printReverse(head);
-    }
-
-    void printReverse(Node current)
-    {
-        if(current.next!=null)
-            printReverse(current.next);
-        System.out.print(current.data+" "); //tail recursion
-    }
-
     void removeDuplicatesInSortedList()
     {
         Node pre=null;
@@ -637,50 +748,6 @@ public class App
         }
     }
 
-    String swapPairWise()
-    {
-        swapPairWise(head,head.next,null);
-        Node curr=this.head;
-        StringBuilder sb=new StringBuilder();
-        while(curr!=null)
-        {
-            sb.append(curr.data);
-            curr=curr.next;
-        }
-        return sb.toString();
-    }
-
-    void swapPairWise(Node pre,Node current,Node prePre)
-    {
-        if(pre==null || current==null || pre==head)
-        {
-            if(pre==null || current==null)
-            {
-                return;
-            }
-            if(pre==head)
-            {
-                head=head.next;
-            }
-        }
-        pre.next=current.next;
-        current.next=pre;
-        if(prePre!=null)
-        {
-            prePre.next=current;
-        }
-        prePre=pre;
-        pre=pre.next;
-        //here for even length pre will be null
-        //so current=pre.next only if pre!=null
-        //otherwise it will give nullpointerException!
-        if(pre!=null)
-        {
-            current=pre.next;
-        }
-        swapPairWise(pre,current,prePre);
-    }
-
     void intersectionOfLists(App list1,App list2)
     {
         Node n1=list1.head;
@@ -700,44 +767,6 @@ public class App
         n.next=intersection(n1.next,n2.next);
         return n;
     
-    }
-
-    void removeAlternateNodes()
-    {
-        int i=0;
-        Node pre=null;
-        Node current=head;
-        while(current!=null)
-        {
-            if(i%2==0)
-            {
-                pre=current;
-                current=current.next;
-                i++;
-            }
-            else
-            {
-                pre.next=current.next;
-                current=current.next;
-                i++;
-            }
-        }
-    }
-
-    void removeAlternateNodesRecurcive()
-    {
-        removeAlternateNodesRecurcive(head);
-    }
-    
-    void removeAlternateNodesRecurcive(Node current)
-    {
-        if(current==null || current.next==null )
-            return;
-        if(current.next.next!=null)
-            current.next=current.next.next;
-        else
-            current.next=null;
-        removeAlternateNodesRecurcive(current.next);
     }
 
     void alternatingSplit(App l)
@@ -902,7 +931,6 @@ public class App
                 }
             }
         }
-
 
         //once a list is empty=> just join the other list at the end
         if(curr1==null)
