@@ -38,7 +38,6 @@ public class AppTest
         linked_list.addLast(2);
         assertEquals(linked_list.size(), 2);
         assertEquals(linked_list.count, 2);
-
     }
 
     @Test
